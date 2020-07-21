@@ -40,7 +40,15 @@ with open(electionpath) as csvfile:
         elif row[2] == "O'Tooley":
             O_Tooley_Votes = O_Tooley_Votes +1
 
-            
+    if Khan_Votes > Correy_Votes and Khan_Votes > Li_Votes and Khan_Votes > O_Tooley_Votes:
+        Winner = "Khan"  
+    elif Correy_Votes > Khan_Votes and Correy_Votes > Li_Votes and Correy_Votes > O_Tooley_Votes:
+        Winner = "Correy"
+    elif Li_Votes > Khan_Votes and Li_Votes > Correy_Votes and Li_Votes > O_Tooley_Votes:
+        Winner = "Li"
+    elif O_Tooley_Votes > Khan_Votes and O_Tooley_Votes > Correy_Votes and O_Tooley_Votes > Li_Votes:
+        Winner = "O'Tooley"
+
 
     #print(Candidates) 
 
@@ -74,7 +82,7 @@ with open(electionpath) as csvfile:
     print(f"Li: {Li_Percent}%  ({Li_Votes})")
     print(f"O'Tooley: {O_Tooley_Percent}%   ({O_Tooley_Votes})")
     print("-" * 50)
-    print(f"Winner: Khan")
+    print(f"Winner: {Winner}")
 
     print("-" * 50)
 

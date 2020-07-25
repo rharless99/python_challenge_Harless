@@ -1,5 +1,4 @@
 import os
-#from pathlib import Path
 import csv
 
 
@@ -56,9 +55,6 @@ with open(electionpath) as csvfile:
     O_Tooley_Percent = O_Tooley_Votes/total_votes
     O_Tooley_Percent = '{0:.3f}'.format(O_Tooley_Percent * 100)
     
-   # PyPollAnalysis = (Saveto/"PyPollAnalysis.txt")
-    
-    #with open(PyPollAnalysis, "w") as txt_file:
 
     print(f"ELECTION RESULTS")
     print(f"-" * 50)

@@ -23,10 +23,10 @@ with open(electionpath) as csvfile:
     Li_Votes = 0
     O_Tooley_Votes = 0
 
-    # Read each row of data after the header
+    # Read each row of data after the header find the total vote count
     for row in csvreader:
         total_votes = total_votes + 1
-       
+    #Find the vote counts for each candidate   
         if row[2] == "Khan":
             Khan_Votes = Khan_Votes +1
         elif row[2] == "Correy":
@@ -36,6 +36,7 @@ with open(electionpath) as csvfile:
         elif row[2] == "O'Tooley":
             O_Tooley_Votes = O_Tooley_Votes +1
 
+    #Determine the winner
     if Khan_Votes > Correy_Votes and Khan_Votes > Li_Votes and Khan_Votes > O_Tooley_Votes:
         Winner = "Khan"  
     elif Correy_Votes > Khan_Votes and Correy_Votes > Li_Votes and Correy_Votes > O_Tooley_Votes:
@@ -45,7 +46,7 @@ with open(electionpath) as csvfile:
     elif O_Tooley_Votes > Khan_Votes and O_Tooley_Votes > Correy_Votes and O_Tooley_Votes > Li_Votes:
         Winner = "O'Tooley"
 
-  
+    #Format candidate outcomes to 3 decimal places and a percent
     Khan_Percent = Khan_Votes/total_votes
     Khan_Percent = '{0:.3f}'.format(Khan_Percent * 100)        
     Correy_Percent = Correy_Votes/total_votes
@@ -55,7 +56,7 @@ with open(electionpath) as csvfile:
     O_Tooley_Percent = O_Tooley_Votes/total_votes
     O_Tooley_Percent = '{0:.3f}'.format(O_Tooley_Percent * 100)
     
-
+    #print to terminal
     print(f"ELECTION RESULTS")
     print(f"-" * 50)
     print(f"Total Votes: {total_votes}")
@@ -69,7 +70,7 @@ with open(electionpath) as csvfile:
     print(f"-" * 50)
     
    
-           
+    #print to text file       
     with open(output_text_path, "w") as txt_file:
         L = [f"ELECTION RESULTS\n",
         f"-------------------\n",

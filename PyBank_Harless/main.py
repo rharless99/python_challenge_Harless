@@ -5,7 +5,7 @@ import csv
 
 
 budgetpath = os.path.join('Resources', 'budget_data.csv')
-#analysispath = os.path.join('Analysis', 'BudgetAnalysis.txt')
+output_analysispath = os.path.join('Analysis', 'BudgetAnalysis.txt')
 
 #Read using CSV module
 
@@ -16,12 +16,11 @@ with open(budgetpath) as csvfile:
     # Read the header row first 
     csv_header = next(csvreader)
     #print(f"CSV Header: {csv_header}")
-    print("FINANCIAL ANALYSIS")
-    print("-" * 50)
-    # Read each row of data after the header
+    
+    # initialize variable
     month_count = 0
     Total_profit_loss = 0
-    # Profits is a new list holding JUST profit and loss number
+    # Profits is a new list holding JUST profit and loss numbers
     Profits = []
     #Months is a new list JUST for the dates
     Months = []
@@ -37,10 +36,6 @@ with open(budgetpath) as csvfile:
         Months.append(Month) 
 
         
-    print(f"Total Months:  {month_count}")
-    print(f"Total: {Total_profit_loss}")
-  
-    
     #loop through profits and find the difference and store those differences in a new list called PL_changes
     PL_changes = []
     for i in range(1, len(Profits)):
@@ -51,10 +46,10 @@ with open(budgetpath) as csvfile:
     for i in range(1, len(PL_changes)): 
         Total_Changes = Total_Changes + PL_changes[i] 
     
-    #print(Total_Changes)
+    #calculate average change and round to 2 decial places
     Average = Total_Changes/len(PL_changes)
     Average = round(Average, 2)
-    print(f"Average Change: ${Average}")
+    
 
     #Loop through PL_changes to find the greatest increase and the greatest decrease
     greatest_increase = PL_changes[0]
@@ -66,10 +61,29 @@ with open(budgetpath) as csvfile:
         elif greatest_decrease > PL_changes[a]:
             greatest_decrease = PL_changes[a]
             gd_months = Months[a+1]
+    
+    
+    #print to terminal
+    print("FINANCIAL ANALYSIS")
+    print("-" * 50)
+    print(f"Total Months:  {month_count}")
+    print(f"Total: {Total_profit_loss}")
+    print(f"Average Change: ${Average}")
     print(f"Greatest Increase in Profits: {gi_months} (${greatest_increase})")
     print(f"Greatest Decrease in Profits: {gd_months} (${greatest_decrease})")
 
-
+    #print to text file
+    with open(output_analysispath, "w") as txt_file:
+        L = [f"FINANCIAL ANALYSIS\n",
+            f"---------------\n",
+            f"Total Months:  {month_count}\n",
+            f"Total: {Total_profit_loss}\n",
+            f"Average Change: ${Average}\n",
+            f"Greatest Increase in Profits: {gi_months} (${greatest_increase})\n"
+            f"Greatest Decrease in Profits: {gd_months} (${greatest_decrease})\n"
+            ]
+        txt_file.writelines(L)
+        txt_file.close()
   
     
     
